@@ -1,0 +1,14 @@
+ipykernel
+pandas
+numpy
+matplotlib
+scikit-learn
+seaborn
+Flask
+pickledb
+xgboost
+lightgbm
+dask
+catboost
+optuna
+imblearn

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eggplant Yield Prediction</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url("{{ url_for('static', filename='Background.webp') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        /* Overlay to darken the background image */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        /* Container for content */
+        .container {
+            text-align: center;
+            z-index: 2; /* Ensure content is above the overlay */
+            position: relative;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.2); /* Very low opacity background */
+            border-radius: 15px;
+            margin: 20px;
+            width: 80%;
+            max-width: 600px; /* Adjusted width for the form */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            backdrop-filter: blur(10px); /* Glassmorphism effect */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff; /* White text for contrast */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #0073e6, #00b4ff); /* Formal blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s infinite alternate; /* Glow effect */
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(0, 115, 230, 0.8), 0 0 20px rgba(0, 115, 230, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 180, 255, 0.8), 0 0 40px rgba(0, 180, 255, 0.8);
+            }
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #ddd; /* Light gray text for better readability */
+            font-size: 1rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            color: white; /* White text */
+            font-size: 1rem;
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.5); /* Placeholder text color */
+        }
+
+        .btn {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px; /* Rounded button */
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Button shadow */
+        }
+
+        .btn:hover {
+            background-color: #4cae4c;
+            transform: translateY(-3px); /* Slight lift on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Eggplant Yield Prediction</h1>
+        <form action="{{ url_for('predict') }}" method="POST">
+            <label for="fw">Fruit Weight (FW):</label>
+            <input type="text" id="fw" name="fw" placeholder="Enter Fruit Weight" required>
+
+            <label for="ph">Plant Height (PH):</label>
+            <input type="text" id="ph" name="ph" placeholder="Enter Plant Height" required>
+
+            <label for="tf">Total Fruits (TF):</label>
+            <input type="text" id="tf" name="tf" placeholder="Enter Total Fruits" required>
+
+            <button type="submit" class="btn">Predict YPP</button>
+        </form>
+    </div>
+</body>
+</html>

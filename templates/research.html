@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Highlights</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url("{{ url_for('static', filename='Background.webp') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        /* Overlay to darken the background image */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        /* Research images section */
+        .research-section {
+            margin-top: 50px;
+            background-color: rgba(255, 255, 255, 0.9); /* More opaque white background */
+            padding: 40px;
+            border-radius: 15px;
+            width: 95%; /* Increased width */
+            max-width: 1400px; /* Increased max-width */
+            position: relative;
+            z-index: 3; /* Ensure it's above the overlay */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            backdrop-filter: blur(10px); /* Glassmorphism effect */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+        }
+
+        .research-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5rem; /* Larger font size */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .research-images {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px; /* Increased gap between images */
+        }
+
+        .research-item {
+            text-align: center;
+            width: 30%;
+            margin-bottom: 20px;
+            cursor: pointer; /* Add pointer cursor to indicate clickable images */
+        }
+
+        .research-item img {
+            width: 400px; /* Increased width */
+            height: 300px; /* Increased height */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease; /* Add hover effect */
+        }
+
+        .research-item img:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        .research-item p {
+            margin-top: 15px; /* Increased margin */
+            font-size: 1.2rem; /* Larger font size */
+            color: #333;
+        }
+
+        /* Button to navigate to Detailed Description */
+        .nav-btn {
+            margin-top: 30px;
+            background-color: #5cb85c;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px; /* Rounded button */
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Button shadow */
+        }
+
+        .nav-btn:hover {
+            background-color: #4cae4c;
+            transform: translateY(-3px); /* Slight lift on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+            overflow: auto;
+            align-items: center; /* Vertical centering */
+            justify-content: center; /* Horizontal centering */
+        }
+
+        .modal-content {
+            max-width: 80%; /* Increased max-width */
+            max-height: 80%; /* Increased max-height */
+            border-radius: 10px;
+            object-fit: contain; /* Ensures the image fits within the modal */
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Research images section -->
+    <div class="research-section">
+        <h2>Research Highlights</h2>
+        <div class="research-images">
+            <!-- Research image 1 -->
+            <div class="research-item" onclick="openModal('{{ url_for('static', filename='a.png') }}')">
+                <img src="{{ url_for('static', filename='a.png') }}" alt="Feature Correlation Heatmap">
+                <p>Figure 1: Feature Correlation Heatmap</p>
+            </div>
+
+            <!-- Research image 2 -->
+            <div class="research-item" onclick="openModal('{{ url_for('static', filename='b.png') }}')">
+                <img src="{{ url_for('static', filename='b.png') }}" alt="Yield Per Plant vs. Fruit Diameter Scatter Plot">
+                <p>Figure 2: Yield Per Plant vs. Fruit Diameter Scatter Plot</p>
+            </div>
+
+            <!-- Research image 3 -->
+            <div class="research-item" onclick="openModal('{{ url_for('static', filename='d.png') }}')">
+                <img src="{{ url_for('static', filename='d.png') }}" alt="Model Performance Comparison">
+                <p>Figure 3: Model Performance Comparison</p>
+            </div>
+
+             <!-- Research image 4 -->
+             <div class="research-item" onclick="openModal('{{ url_for('static', filename='x.png') }}')">
+                <img src="{{ url_for('static', filename='x.png') }}" alt="Result After Tuning">
+                <p>Figure 4: Result After Tuning</p>
+            </div>
+
+            <!-- Research image 5 -->
+            <div class="research-item" onclick="openModal('{{ url_for('static', filename='y.png') }}')">
+                <img src="{{ url_for('static', filename='y.png') }}" alt="R Squared Comparison">
+                <p>Figure 5: R Squared Comparison</p>
+            </div>
+
+            <!-- Research image 6 -->
+            <div class="research-item" onclick="openModal('{{ url_for('static', filename='z.png') }}')">
+                <img src="{{ url_for('static', filename='z.png') }}" alt="Result Before Tuning">
+                <p>Figure 6: Result Before Tuning</p>
+            </div>
+        </div>
+
+        <!-- Button to navigate to Detailed Description -->
+        <a href="{{ url_for('description') }}" class="nav-btn">View Detailed Description</a>
+    </div>
+
+    <!-- Modal for displaying larger images -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Function to open the modal and display the clicked image
+        function openModal(imageSrc) {
+            console.log("Opening modal with image:", imageSrc); // Debugging
+            const modal = document.getElementById("myModal");
+            const modalImg = document.getElementById("modalImage");
+            modal.style.display = "flex"; /* Ensure modal is displayed as flex */
+            modalImg.src = imageSrc;
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            console.log("Closing modal"); // Debugging
+            const modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById("myModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>
